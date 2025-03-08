@@ -1,9 +1,11 @@
 import express from 'express';
 import requestGemini from './src/ai/requestGemini.js';
 import isApiKeyValid from './src/utils/isApiKeyValid.js';
+import cors from 'cors';
+
 const app = express();
 const port = 8000;
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
