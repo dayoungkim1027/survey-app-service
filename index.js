@@ -3,9 +3,15 @@ import requestGemini from './src/ai/requestGemini.js';
 import isApiKeyValid from './src/utils/isApiKeyValid.js';
 import cors from 'cors';
 
+const corsOptions ={
+	origin: 'http://192.168.86.20:3000' || 'https://mbti-survey-app--mbti-survey-app.us-central1.hosted.app',
+	credentials: true, //access-control-allow-credentials:true
+	optionSuccessStatus: 200
+}
+
 const app = express();
 const port = 8000;
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
