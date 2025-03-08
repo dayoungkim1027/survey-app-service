@@ -4,9 +4,10 @@ import isApiKeyValid from './src/utils/isApiKeyValid.js';
 import cors from 'cors';
 
 const corsOptions ={
-	origin: 'http://192.168.86.20:3000' || 'https://mbti-survey-app--mbti-survey-app.us-central1.hosted.app',
-	credentials: true, //access-control-allow-credentials:true
-	optionSuccessStatus: 200
+	origin: 'https://mbti-survey-app--mbti-survey-app.us-central1.hosted.app',
+	credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: 'Content-Type, Authorization',
 }
 
 const app = express();
@@ -31,6 +32,14 @@ app.post('/ask/gemini', async (req, res) => {
 	} catch (e) {
 		res.status(500).send('Gemini cannot answer')
 	}
+});
+
+app.options('/ask/gemini', (req, res) => {
+	res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {
